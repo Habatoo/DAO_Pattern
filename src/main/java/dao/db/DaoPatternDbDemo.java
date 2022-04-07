@@ -1,11 +1,12 @@
 package dao.db;
 
-
 public class DaoPatternDbDemo {
 
     public static void main(String[] args) {
 
         DeveloperDao developerDao = new DeveloperDaoImpl();
+
+        developerDao.create(); // Developers data created
 
         // print all developers
         for (Developer developer : developerDao.getAll()) {
@@ -36,10 +37,10 @@ public class DaoPatternDbDemo {
 
         System.out.println();
         System.out.println("delete 0");
-        developerDao.delete(developer);
+        developerDao.delete(developer.getDeveloperId());
         // print all developers
         for (Developer dev1 : developerDao.getAll()) {
-            System.out.println("Developer: [Id : " + dev1.getDeveloperId() +  // Developer: [Id : 0, Name : Ada ]
+            System.out.println("Developer: [Id : " + dev1.getDeveloperId() +
                     ", Name : " + dev1.getDeveloperName() + " ]");            // Developer: [Id : 1, Name : Rob ]
         }
 

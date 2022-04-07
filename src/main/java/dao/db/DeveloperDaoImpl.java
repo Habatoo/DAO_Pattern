@@ -14,9 +14,13 @@ public class DeveloperDaoImpl implements DeveloperDao {
 
     private static String selectAll = "SELECT * FROM DEVELOPER";
 
-    public DeveloperDaoImpl(){
+    public DeveloperDaoImpl() {}
+
+    @Override
+    public void create() {
         JdbcConfig.run(createDb);
         JdbcConfig.run(insertData);
+        System.out.println("Developers data created");
     }
 
     // retrieve list of Developers
@@ -26,8 +30,8 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public Developer get(int developerName) {
-        return JdbcConfig.select(selectAll, developerName).get(0);
+    public Developer get(int developerId) {
+        return JdbcConfig.select(selectAll, developerId).get(0);
     }
 
     @Override
@@ -40,11 +44,11 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public void delete(Developer developer) {
+    public void delete(int developerId) {
         String deleteData = "DELETE FROM DEVELOPER " +
-                " WHERE developerId = " + developer.getDeveloperId();
+                " WHERE developerId = " + developerId;
         JdbcConfig.run(deleteData);
-        System.out.println("Developer: Id " + developer.getDeveloperId() + ", deleted");
+        System.out.println("Developer: Id " + developerId + ", deleted");
     }
 
 }
