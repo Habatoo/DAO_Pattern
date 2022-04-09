@@ -2,30 +2,31 @@ package dao.simple;
 
 public class DaoPatternDemo {
     public static void main(String[] args) {
-        DeveloperDao developerDao = new DeveloperDaoImpl();
+        DeveloperDao developerDao = new DeveloperDaoImpl(); // Developers data created
 
-        developerDao.create(); // Developers data created
+        // add the data
+        developerDao.add(new Developer("Ada", 0)); // Developer: Id 0, name: Ada added
+        developerDao.add(new Developer("Rob", 1)); // Developer: Id 1, name: Rob added
 
         // print all developers
-        for (Developer developer : developerDao.getAll()) {
-            System.out.println("Developer: [Id : " + developer.getDeveloperId() +  // Developer: [Id : 0, Name : Ada ]
-                    ", Name : " + developer.getDeveloperName() + " ]");            // Developer: [Id : 1, Name : Rob ]
+        for (Developer developer : developerDao.findAll()) {
+            System.out.println("Developer: [Id " + developer.getDeveloperId() +  // Developer: [Id 0, Name : Ada ]
+                    ", Name : " + developer.getDeveloperName() + " ]");            // Developer: [Id 1, Name : Rob ]
         }
 
+        // find developer by id
+        developerDao.findById(0);  // Developer: Id 0, found
+        developerDao.findById(10); // Developer: Id 10, not found
+
         // update developer data
-        Developer developer = developerDao.getAll().get(0);
+        Developer developer = developerDao.findById(0);
         developer.setDeveloperName("Adelaida");
         developerDao.update(developer); // Developer: Id 0, updated
 
-        //get the developer
-        developerDao.get(0);
-        System.out.println("Developer: [Id : " + developer.getDeveloperId() +
-                ", Name : " + developer.getDeveloperName() + " ]"); // Developer: [Id : 0, Name : Adelaida ]
-
         //delete the developer
-        developerDao.delete(developer.getDeveloperId());
-        System.out.println("Developer: [Id : " + developer.getDeveloperId() +
-                ", Name : " + developer.getDeveloperName() + " ]"); // Developer: Id 0, deleted
-                                                                    // Developer: [Id : 0, Name : Adelaida ]
+        developerDao.deleteById(0); // Developer: Id 0, deleted
+        developerDao.findById(0); // Developer: Id 0, not found
+
     }
+
 }

@@ -8,30 +8,39 @@ public class DeveloperDaoImpl implements DeveloperDao {
             "developerId INTEGER PRIMARY KEY," +
             "developerName TEXT NOT NULL);";
 
-    private static String insertData = "INSERT INTO DEVELOPER VALUES " +
-            "(0, 'Ada')," +
-            "(1, 'Bob')";
-
     private static String selectAll = "SELECT * FROM DEVELOPER";
 
-    public DeveloperDaoImpl() {}
-
-    @Override
-    public void create() {
+    public DeveloperDaoImpl() {
         JdbcConfig.run(createDb);
-        JdbcConfig.run(insertData);
         System.out.println("Developers data created");
     }
 
-    // retrieve list of Developers
     @Override
-    public List<Developer> getAll() {
+    public void add(Developer developer) {
+        String insertData = "INSERT INTO DEVELOPER VALUES " +
+                "(" + developer.getDeveloperId() + ", '" + developer.getDeveloperName() + "')";
+        JdbcConfig.run(insertData);
+        System.out.println("Data added");
+    }
+
+    @Override
+    public List<Developer> findAll() {
         return JdbcConfig.select(selectAll, -1);
     }
 
     @Override
-    public Developer get(int developerId) {
-        return JdbcConfig.select(selectAll, developerId).get(0);
+    public Developer findById(int developerId) {
+
+        List<Developer> developers = JdbcConfig.select(selectAll, developerId);
+
+        if (developers.size() != 0) {
+            System.out.println("Developer: Id " + developerId + ", found");
+            return developers.get(0);
+        } else {
+            System.out.println("Developer: Id " + developerId + ", not found");
+            return null;
+        }
+
     }
 
     @Override
@@ -44,7 +53,7 @@ public class DeveloperDaoImpl implements DeveloperDao {
     }
 
     @Override
-    public void delete(int developerId) {
+    public void deleteById(int developerId) {
         String deleteData = "DELETE FROM DEVELOPER " +
                 " WHERE developerId = " + developerId;
         JdbcConfig.run(deleteData);

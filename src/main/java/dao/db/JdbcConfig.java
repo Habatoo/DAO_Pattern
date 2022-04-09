@@ -1,6 +1,7 @@
 package dao.db;
 
 import org.sqlite.SQLiteDataSource;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class JdbcConfig {
         try (Connection con = dataSource.getConnection(); // Statement creation
              Statement statement = con.createStatement()
         ) {
-                statement.executeUpdate(str); // Statement execution
+            statement.executeUpdate(str); // Statement execution
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,7 +48,7 @@ public class JdbcConfig {
             }
             return developersList;
         } catch (SQLException e) {
-                    e.printStackTrace();
+            e.printStackTrace();
         }
         return developersList;
     }

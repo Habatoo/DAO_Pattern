@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface DeveloperDao {
 
-    void create();
-    List<Developer> getAll();
-    Developer get(int developerId);
+    List<Developer> findAll();
+    Developer findById(int developerId);
+    void add(Developer developer);
     void update(Developer developer);
-    void delete(int developerId);
+    void deleteById(int developerId);
 
 }
