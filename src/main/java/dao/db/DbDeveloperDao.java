@@ -10,6 +10,12 @@ public class DbDeveloperDao implements DeveloperDao {
 
     private static final String SELECT_ALL = "SELECT * FROM DEVELOPER";
 
+    private static final String INSERT_DATA = "INSERT INTO DEVELOPER VALUES (%d , '%s')";
+
+    private static final String UPDATE_DATA = "UPDATE developer SET developerName = '%s' WHERE developerId = %d";
+
+    private static final String DELETE_DATA = "DELETE FROM DEVELOPER WHERE developerId = %d";
+
     public DbDeveloperDao() {
         DbClient.run(CREATE_DB);
         System.out.println("Developers data structure create");
@@ -17,9 +23,7 @@ public class DbDeveloperDao implements DeveloperDao {
 
     @Override
     public void add(Developer developer) {
-        final String INSERT_DATA = "INSERT INTO DEVELOPER VALUES " +
-                "(" + developer.getDeveloperId() + ", '" + developer.getDeveloperName() + "')";
-        DbClient.run(INSERT_DATA);
+        DbClient.run(String.format(INSERT_DATA, developer.getDeveloperId(), developer.getDeveloperName()));
         System.out.println("Data added");
     }
 
@@ -45,18 +49,13 @@ public class DbDeveloperDao implements DeveloperDao {
 
     @Override
     public void update(Developer developer) {
-        String updateData = "UPDATE developer " +
-                "SET developerName = '" + developer.getDeveloperName() + "'" +
-                " WHERE developerId = " + developer.getDeveloperId();
-        DbClient.run(updateData);
+        DbClient.run(String.format(UPDATE_DATA, developer.getDeveloperName(), developer.getDeveloperId()));
         System.out.println("Developer: Id " + developer.getDeveloperId() + ", updated");
     }
 
     @Override
     public void deleteById(int developerId) {
-        String deleteData = "DELETE FROM DEVELOPER " +
-                " WHERE developerId = " + developerId;
-        DbClient.run(deleteData);
+        DbClient.run(String.format(DELETE_DATA, developerId));
         System.out.println("Developer: Id " + developerId + ", deleted");
     }
 

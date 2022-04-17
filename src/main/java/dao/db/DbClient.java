@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DbClient {
 
-    private static final String CONNECTION = "jdbc:sqlite:developer.db";
+    private static final String CONNECTION_URL = "jdbc:sqlite:developer.db";
     private static final SQLiteDataSource DATASOURCE = new SQLiteDataSource();
 
     public DbClient() {
@@ -19,7 +19,7 @@ public class DbClient {
 
     public static void run(String str) {
 
-        DATASOURCE.setUrl(CONNECTION);
+        DATASOURCE.setUrl(CONNECTION_URL);
 
         try (Connection con = DATASOURCE.getConnection(); // Statement creation
              Statement statement = con.createStatement()
@@ -33,7 +33,7 @@ public class DbClient {
 
     public static List<Developer> select(String str, Integer index) {
 
-        DATASOURCE.setUrl(CONNECTION);
+        DATASOURCE.setUrl(CONNECTION_URL);
         List<Developer> developersList = new ArrayList<>();
 
         try (Connection con = DATASOURCE.getConnection();
