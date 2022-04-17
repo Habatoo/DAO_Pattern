@@ -2,7 +2,7 @@ package dao.simple;
 
 public class DaoPatternDemo {
     public static void main(String[] args) {
-        DeveloperDao developerDao = new DeveloperDaoImpl(); // Developers data created
+        DeveloperDao developerDao = new InMemoryDeveloperDao(); // Developers data structure create
 
         // add the data
         developerDao.add(new Developer("Ada", 0)); // Developer: Id 0, name: Ada added

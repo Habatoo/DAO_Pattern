@@ -9,16 +9,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcConfig {
+public class DbClient {
 
-    private static String connectionString = "jdbc:sqlite:developer.db";
-    private static SQLiteDataSource dataSource = new SQLiteDataSource();
+    private static final String CONNECTION = "jdbc:sqlite:developer.db";
+    private static final SQLiteDataSource DATASOURCE = new SQLiteDataSource();
+
+    public DbClient() {
+    }
 
     public static void run(String str) {
 
-        dataSource.setUrl(connectionString);
+        DATASOURCE.setUrl(CONNECTION);
 
-        try (Connection con = dataSource.getConnection(); // Statement creation
+        try (Connection con = DATASOURCE.getConnection(); // Statement creation
              Statement statement = con.createStatement()
         ) {
             statement.executeUpdate(str); // Statement execution
@@ -30,10 +33,10 @@ public class JdbcConfig {
 
     public static List<Developer> select(String str, Integer index) {
 
-        dataSource.setUrl(connectionString);
+        DATASOURCE.setUrl(CONNECTION);
         List<Developer> developersList = new ArrayList<>();
 
-        try (Connection con = dataSource.getConnection();
+        try (Connection con = DATASOURCE.getConnection();
              Statement statement = con.createStatement();
              ResultSet developers = statement.executeQuery(str)
         ) {
