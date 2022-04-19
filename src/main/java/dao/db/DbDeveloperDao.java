@@ -4,19 +4,14 @@ import java.util.List;
 
 public class DbDeveloperDao implements DeveloperDao {
 
-    private static final String CREATE_DB = "CREATE TABLE IF NOT EXISTS DEVELOPER(" +
+    private final String CREATE_DB = "CREATE TABLE IF NOT EXISTS DEVELOPER(" +
             "developerId INTEGER PRIMARY KEY," +
             "developerName TEXT NOT NULL);";
-
-    private static final String SELECT_ALL = "SELECT * FROM DEVELOPER";
-
-    private static final String INSERT_DATA = "INSERT INTO DEVELOPER VALUES (%d , '%s')";
-
-    private static final String UPDATE_DATA = "UPDATE developer SET developerName = '%s' WHERE developerId = %d";
-
-    private static final String DELETE_DATA = "DELETE FROM DEVELOPER WHERE developerId = %d";
-
-    DbClient dbClient = new DbClient();
+    private final String SELECT_ALL = "SELECT * FROM DEVELOPER";
+    private final String INSERT_DATA = "INSERT INTO DEVELOPER VALUES (%d , '%s')";
+    private final String UPDATE_DATA = "UPDATE developer SET developerName = '%s' WHERE developerId = %d";
+    private final String DELETE_DATA = "DELETE FROM DEVELOPER WHERE developerId = %d";
+    private final DbClient dbClient = new DbClient();
 
     public DbDeveloperDao() {
         dbClient.run(CREATE_DB);
