@@ -16,26 +16,28 @@ public class DbDeveloperDao implements DeveloperDao {
 
     private static final String DELETE_DATA = "DELETE FROM DEVELOPER WHERE developerId = %d";
 
+    DbClient dbClient = new DbClient();
+
     public DbDeveloperDao() {
-        DbClient.run(CREATE_DB);
+        dbClient.run(CREATE_DB);
         System.out.println("Developers data structure create");
     }
 
     @Override
     public void add(Developer developer) {
-        DbClient.run(String.format(INSERT_DATA, developer.getDeveloperId(), developer.getDeveloperName()));
+        dbClient.run(String.format(INSERT_DATA, developer.getDeveloperId(), developer.getDeveloperName()));
         System.out.println("Data added");
     }
 
     @Override
     public List<Developer> findAll() {
-        return DbClient.select(SELECT_ALL, -1);
+        return dbClient.select(SELECT_ALL, -1);
     }
 
     @Override
     public Developer findById(int developerId) {
 
-        List<Developer> developers = DbClient.select(SELECT_ALL, developerId);
+        List<Developer> developers = dbClient.select(SELECT_ALL, developerId);
 
         if (developers.size() != 0) {
             System.out.println("Developer: Id " + developerId + ", found");
@@ -49,13 +51,13 @@ public class DbDeveloperDao implements DeveloperDao {
 
     @Override
     public void update(Developer developer) {
-        DbClient.run(String.format(UPDATE_DATA, developer.getDeveloperName(), developer.getDeveloperId()));
+        dbClient.run(String.format(UPDATE_DATA, developer.getDeveloperName(), developer.getDeveloperId()));
         System.out.println("Developer: Id " + developer.getDeveloperId() + ", updated");
     }
 
     @Override
     public void deleteById(int developerId) {
-        DbClient.run(String.format(DELETE_DATA, developerId));
+        dbClient.run(String.format(DELETE_DATA, developerId));
         System.out.println("Developer: Id " + developerId + ", deleted");
     }
 
