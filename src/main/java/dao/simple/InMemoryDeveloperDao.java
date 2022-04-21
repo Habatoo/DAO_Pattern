@@ -15,7 +15,7 @@ public class InMemoryDeveloperDao implements DeveloperDao {
 
     @Override
     public List<Developer> findAll() {
-        return developers;
+        return new ArrayList<>(developers);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class InMemoryDeveloperDao implements DeveloperDao {
         for (Developer developer : developers) {
             if (developerId == developer.getDeveloperId()) {
                 System.out.println("Developer: Id " + developerId + ", found");
-                return developer;
+                return new Developer(developer.getDeveloperName(), developer.getDeveloperId());
             }
         }
         System.out.println("Developer: Id " + developerId + ", not found");
