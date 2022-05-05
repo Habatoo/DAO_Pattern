@@ -2,27 +2,33 @@ package dao.simple;
 
 public class Developer {
 
-    private String developerName;
-    private int developerId;
+    private int id;
+    private String name;
 
-    public Developer(String developerName, int developerId) {
-        this.developerName = developerName;
-        this.developerId = developerId;
+    public Developer(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public String getDeveloperName() {
-        return developerName;
+    public String getName() {
+        return name;
     }
 
-    public void setDeveloperName(String developerName) {
-        this.developerName = developerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getDeveloperId() {
-        return developerId;
+    public int getId() {
+        return id;
     }
 
-    public void setDeveloperId(int developerId) {
-        this.developerId = developerId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Developer: [Id " + id
+                + ", Name : " + name + " ]";
     }
 }

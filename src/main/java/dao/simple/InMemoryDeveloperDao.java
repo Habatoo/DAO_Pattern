@@ -6,7 +6,7 @@ import java.util.List;
 public class InMemoryDeveloperDao implements DeveloperDao {
 
     // list is working as a database
-    private List<Developer> developers;
+    private final List<Developer> developers;
 
     public InMemoryDeveloperDao() {
         developers = new ArrayList<>();
@@ -19,44 +19,51 @@ public class InMemoryDeveloperDao implements DeveloperDao {
     }
 
     @Override
-    public Developer findById(int developerId) {
-        for (Developer developer : developers) {
-            if (developerId == developer.getDeveloperId()) {
-                System.out.println("Developer: Id " + developerId + ", found");
-                return new Developer(developer.getDeveloperName(), developer.getDeveloperId());
-            }
+    public Developer findById(int id) {
+        Developer found = findByIdInternal(id);
+        if (found == null) {
+            System.out.println("Developer: Id " + id + ", not found");
+            return null;
         }
-        System.out.println("Developer: Id " + developerId + ", not found");
-        return null;
+        System.out.println("Developer: Id " + id + ", found");
+        return new Developer(found.getId(), found.getName());
     }
 
     @Override
     public void add(Developer developer) {
         developers.add(developer);
-        System.out.println("Developer: Id " + developer.getDeveloperId() +
-                ", name: " + developer.getDeveloperName() + " added");
+        System.out.println("Developer: Id " + developer.getId() +
+                ", name: " + developer.getName() + " added");
     }
 
     @Override
     public void update(Developer developer) {
-        if (null != findById(developer.getDeveloperId())) {
-                developers.get(developer.getDeveloperId()).setDeveloperName(developer.getDeveloperName());
-                System.out.println("Developer: Id " + developer.getDeveloperId() + ", updated");
-                return;
+        Developer found = findByIdInternal(developer.getId());
+        if (found != null) {
+            found.setName(developer.getName());
+            System.out.println("Developer: Id " + developer.getId() + ", updated");
+        } else {
+            System.out.println("Developer: Id " + developer.getId() + ", not found");
         }
-        System.out.println("Developer: Id " + developer.getDeveloperId() + ", not found");
     }
 
     @Override
-    public void deleteById(int developerId) {
-        Developer developer = findById(developerId);
-        if (null != developer) {
-            developers.remove(developer);
-            System.out.println("Developer: Id " + developerId + ", deleted");
-            return;
+    public void deleteById(int id) {
+        Developer found = findByIdInternal(id);
+        if (found != null) {
+            developers.remove(found);
+            System.out.println("Developer: Id " + id + ", deleted");
+        } else {
+            System.out.println("Developer: Id " + id + ", not found");
         }
-        System.out.println("Developer: Id " + developerId + ", not found");
-
     }
 
+    private Developer findByIdInternal(int id) {
+        for (Developer developer : developers) {
+            if (id == developer.getId()) {
+                return developer;
+            }
+        }
+        return null;
+    }
 }

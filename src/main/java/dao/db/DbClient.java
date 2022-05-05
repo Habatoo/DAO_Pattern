@@ -40,10 +40,10 @@ public class DbClient {
         ) {
             while (developers.next()) {
                 // Retrieve column values
-                int id = developers.getInt("developerId");
+                int id = developers.getInt("id");
                 if (index == -1 || index == id) {
-                    String name = developers.getString("developerName");
-                    Developer developer = new Developer(name, id);
+                    String name = developers.getString("name");
+                    Developer developer = new Developer(id, name);
                     developersList.add(developer);
                 }
             }

@@ -7,13 +7,15 @@ public class DaoPatternDbDemo {
         DeveloperDao developerDao = new DbDeveloperDao(); // Developers data structure create
 
         // add the data
-        developerDao.add(new Developer("Ada", 0)); // Developer: Id 0, name: Ada added
-        developerDao.add(new Developer("Rob", 1)); // Developer: Id 1, name: Rob added
+        developerDao.add(new Developer(
+                 0, "Ada")); // Developer: Id 0, name: Ada added
+        developerDao.add(new Developer(
+                 1, "Rob")); // Developer: Id 1, name: Rob added
 
         // print all developers
         for (Developer developer : developerDao.findAll()) {
-            System.out.println("Developer: [Id " + developer.getDeveloperId() +  // Developer: [Id 0, Name : Ada ]
-                    ", Name : " + developer.getDeveloperName() + " ]");          // Developer: [Id 1, Name : Rob ]
+            System.out.println(  // Developer: [Id 0, Name : Ada ]
+                    developer);  // Developer: [Id 1, Name : Rob ]
         }
 
         // find developer by id
@@ -21,14 +23,14 @@ public class DaoPatternDbDemo {
         developerDao.findById(10); // Developer: Id 10, not found
 
         // update developer data
-        Developer developer = developerDao.findById(0);
-        developer.setDeveloperName("Adelaida");
+        Developer developer = developerDao.findById(0); // Developer: Id 0, found
+        developer.setName("Adelaida");
         developerDao.update(developer); // Developer: Id 0, updated
 
         //delete the developer
         developerDao.deleteById(0); // Developer: Id 0, deleted
+        developerDao.deleteById(10); // Developer: Id 10 not found
         developerDao.findById(0); // Developer: Id 0, not found
-
     }
 
 }

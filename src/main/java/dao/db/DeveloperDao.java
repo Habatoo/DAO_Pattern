@@ -3,11 +3,9 @@ package dao.db;
 import java.util.List;
 
 public interface DeveloperDao {
-
     List<Developer> findAll();
-    Developer findById(int developerId);
+    Developer findById(int id);
     void add(Developer developer);
     void update(Developer developer);
-    void deleteById(int developerId);
-
+    void deleteById(int id);
 }
