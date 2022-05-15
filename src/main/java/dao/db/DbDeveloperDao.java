@@ -24,7 +24,7 @@ public class DbDeveloperDao implements DeveloperDao {
         dbClient.run(String.format(
                 INSERT_DATA, developer.getId(), developer.getName()));
         System.out.println("Developer: Id " + developer.getId() +
-                ", name: " + developer.getName() + " added");
+                ", name: " + developer.getName() + ", added");
     }
 
     @Override

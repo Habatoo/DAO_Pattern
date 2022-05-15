@@ -33,7 +33,7 @@ public class InMemoryDeveloperDao implements DeveloperDao {
     public void add(Developer developer) {
         developers.add(developer);
         System.out.println("Developer: Id " + developer.getId() +
-                ", name: " + developer.getName() + " added");
+                ", name: " + developer.getName() + ", added");
     }
 
     @Override

@@ -111,7 +111,7 @@ class CustomerDaoImpl implements CustomerDao {
     @Override
     public void add(Customer customer) {
         storage.add(customer);
-        System.out.println(customer + " added");
+        System.out.println(customer + ", added");
     }
 
     @Override
@@ -180,7 +180,7 @@ class SupplierDaoImpl implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        System.out.println(supplier + " added");
+        System.out.println(supplier + ", added");
         storage.add(supplier);
     }
 
@@ -206,7 +206,7 @@ class SupplierDaoImpl implements SupplierDao {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i) instanceof Supplier
                     && storage.get(i).getNumber() == supplier.getNumber()) {
-                System.out.println(supplier + ", found");
+                System.out.println(supplier + ", updated");
                 storage.get(i).setName(supplier.getName());
                 storage.get(i).setDate(supplier.getDate());
                 return;
